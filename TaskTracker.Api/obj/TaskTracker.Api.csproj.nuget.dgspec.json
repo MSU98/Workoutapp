@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\owner\\Desktop\\TUC\\Programmering 2\\Class Library\\TaskTracker.Api\\TaskTracker.Api.csproj": {}
+    "c:\\Users\\owner\\Desktop\\TUC\\Programmering 2\\Class Library\\TaskTracker.Api\\TaskTracker.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\owner\\Desktop\\TUC\\Programmering 2\\Class Library\\TaskTracker.Api\\TaskTracker.Api.csproj": {
+    "c:\\Users\\owner\\Desktop\\TUC\\Programmering 2\\Class Library\\TaskTracker.Api\\TaskTracker.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\owner\\Desktop\\TUC\\Programmering 2\\Class Library\\TaskTracker.Api\\TaskTracker.Api.csproj",
+        "projectUniqueName": "c:\\Users\\owner\\Desktop\\TUC\\Programmering 2\\Class Library\\TaskTracker.Api\\TaskTracker.Api.csproj",
         "projectName": "TaskTracker.Api",
-        "projectPath": "C:\\Users\\owner\\Desktop\\TUC\\Programmering 2\\Class Library\\TaskTracker.Api\\TaskTracker.Api.csproj",
+        "projectPath": "c:\\Users\\owner\\Desktop\\TUC\\Programmering 2\\Class Library\\TaskTracker.Api\\TaskTracker.Api.csproj",
         "packagesPath": "C:\\Users\\owner\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\owner\\Desktop\\TUC\\Programmering 2\\Class Library\\TaskTracker.Api\\obj\\",
+        "outputPath": "c:\\Users\\owner\\Desktop\\TUC\\Programmering 2\\Class Library\\TaskTracker.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\owner\\AppData\\Roaming\\NuGet\\NuGet.Config",

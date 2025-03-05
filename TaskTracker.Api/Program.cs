@@ -1,44 +1,86 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Mock-data för träningspass och övningar
+var workouts = new List<Workout>();
+var strengthWorkouts = new List<StrengthWorkout>();
+var exercises = new List<Exercise>();
 
-app.UseHttpsRedirection();
+// Endpoint för att hämta alla träningspass
+app.MapGet("/workouts", () => workouts);
 
-var summaries = new[]
+// Endpoint för att skapa ett nytt träningspass
+app.MapPost("/workouts", (Workout workout) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    workouts.Add(workout);
+    return Results.Created($"/workouts/{workout.Id}", workout);
+});
 
-app.MapGet("/weatherforecast", () =>
+// Endpoint för att filtrera övningar efter muskelgrupp
+app.MapGet("/workouts/muscle-group/{group}", (string group) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+    var filteredExercises = WorkoutFilter.FilterExercisesByMuscleGroup(exercises, group);
+    return Results.Ok(filteredExercises);
+});
+
+// Endpoint för att sortera styrketräningspass efter intensitet
+app.MapGet("/workouts/sort-by-intensity", (bool ascending) =>
+{
+    var sortedWorkouts = WorkoutFilter.SortWorkoutsByIntensity(strengthWorkouts, ascending);
+    return Results.Ok(sortedWorkouts);
+});
+
+// Endpoint för att beräkna total träningstid
+app.MapGet("/workouts/total-duration", () =>
+{
+    var totalDuration = WorkoutFilter.CalculateTotalDuration(workouts);
+    return Results.Ok(new { TotalDurationMinutes = totalDuration });
+});
+
+// Endpoint för att beräkna totalt antal förbrända kalorier
+app.MapGet("/workouts/total-calories", () =>
+{
+    var totalCalories = WorkoutFilter.CalculateTotalCaloriesBurned(workouts);
+    return Results.Ok(new { TotalCaloriesBurned = totalCalories });
+});
 
 app.Run();
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+// Mocklista för att lagra träningspass
+List<Workout> workouts = new List<Workout>();
+
+// 1. Endpoint för att skapa ett träningspass
+app.MapPost("/workouts", (Workout workout) =>
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    // Lägg till träningspasset i listan
+    workouts.Add(workout);
+    return Results.Created($"/workouts/{workout.Id}", workout);  // Returnera det skapade träningspasset
+});
+
+// Kör API:et
+
+POST /workouts
+Content-Type: application/json
+{
+    "id": 1,
+    "name": "Arm Day",
+    "date": "2023-10-15",
+    "durationMinutes": 60,
+    "caloriesBurned": 300
+};
+[ApiController]
+[Route("api/tasks")]
+public class TasksController : ControllerBase
+{
+    [HttpGet]
+    public IActionResult GetTasks()
+    {
+        return Ok(new { Message = "List of tasks" });
+    }
 }
