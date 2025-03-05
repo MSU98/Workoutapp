@@ -2,8 +2,8 @@ Träningspass API
 
 Beskrivning
 Detta projekt handlar om att utveckla ett API för att hantera träningspass. Jag har skapat ett klassbibliotek som inkluderar olika typer av träningspass och implementerat funktioner för att filtrera och sortera dessa pass. Därutöver har jag byggt endpoints för att effektivt hantera och visa information om träningspassen.
-Klasser
 
+Klasser
 Workout: En bas-klass för träningspass som har egenskaper som Id, Namn, Datum, Längd (i minuter) och Förbrända kalorier.
 CardioWorkout: Ärver från Workout och lägger till egenskaper som Distans (i km) och Medelhastighet (i km/h).
 StrengthWorkout: Ärver också från Workout och lägger till egenskaper som Muskelgrupp och Intensitet.
